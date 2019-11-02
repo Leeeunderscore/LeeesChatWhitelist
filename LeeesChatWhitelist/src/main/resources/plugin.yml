@@ -1,0 +1,7 @@
+name: LeeesChatWhitelist
+version: ${project.version}
+main: Leees.Chat.Whitelist.Main
+api-version: 1.13
+authors: [Nate, Legault]
+description: Chat whitelist plugin for anarchy servers
+website: http://6b6t.org

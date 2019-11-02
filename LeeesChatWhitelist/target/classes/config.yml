@@ -1,0 +1,19 @@
+#LeeesChatWhitelist V1.0.0 Configuration
+#use § for chat colours in the messages
+not-whitelisted-message:
+  - "§1-----------------------------------------------"
+  - "§6[AntiBot] Welcome to §b6b§36t §7§l{playername}"
+  - "§6Please verify you're not a bot at"
+  - "§chttps://www.6b6t.org/whitelist/ §6to chat on §b6b§36t"
+  - "§6or you will be kicked if you dont"
+  - "§1-----------------------------------------------"
+whitelisted-message:
+  - "§1-----------------------------------------------"
+  - "§6Welcome to §b6builders§36tools §7§l{playername}"
+  - "§6Please join 6b6t using §c6b6t.org §6and on versions"
+  - "§c1.12 §6or §c1.12.2 §6for the best experience"
+  - "§6Do §c/discord §6to join the official §b6b§36t discord server"
+  - "§6For more info about §b6b§36t do §c/info §6and §c/help"
+  - "§6Enjoy your stay on §b6builders§36tools §6!!!"
+  - "§1-----------------------------------------------"
+
