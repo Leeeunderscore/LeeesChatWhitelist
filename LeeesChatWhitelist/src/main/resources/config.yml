@@ -26,13 +26,13 @@ whitelisted-message:
   - "§6Enjoy your stay on §b6builders§36tools §6!!!"
   - "§1-----------------------------------------------"
 
-#not whitelisted player chat kick message
-on-chat-kick-message:
-  - "§6[AntiBot] Please verify you're not a bot at https://www.6b6t.org/whitelist/ to chat on 6b6t"
+#not whitelisted player chat kick message (work in progress for now you have to edit the source and compile your own version)
+#on-chat-kick-message:
+# - "§6[AntiBot] Please verify you're not a bot at https://www.6b6t.org/whitelist/ to chat on 6b6t"
 
-#not whitelisted player run command kick message
-on-cmd-kick-message:
-  - "§6[AntiBot] Please verify you're not a bot at https://www.6b6t.org/whitelist/ to run commands on 6b6t"
+#not whitelisted player run command kick message (work in progress for now you have to edit the source and compile your own version)
+#on-cmd-kick-message:
+#- "§6[AntiBot] Please verify you're not a bot at https://www.6b6t.org/whitelist/ to run commands on 6b6t"
 
 #put your captcha keys here (work in progress for now you have to edit the source and compile your own version)
 #reg-key:

@@ -62,51 +62,17 @@ public final class Main extends JavaPlugin implements Listener {
     public void onChat(PlayerChatEvent e) {
         if (!verified.contains(e.getPlayer().getName())) {
             e.setCancelled(true);
-            List strings = this.getConfig().getStringList("on-chat-kick-message");
-            ArrayList finalStrings = new ArrayList();
-            (new Thread(() -> {
-                Iterator var3 = strings.iterator();
-
-                String sss;
-                while (var3.hasNext()) {
-                    sss = (String) var3.next();
-                }
-
-                var3 = finalStrings.iterator();
-
-                while (var3.hasNext()) {
-                    sss = (String) var3.next();
-                    e.getPlayer().sendMessage(sss);
-                }
-
-            })).start();
+            e.getPlayer().kickPlayer("§6[AntiBot] Please verify you're not a bot at http://yoursitehere.com/whitelist/ to chat on 6b6t");
         }
     }
 
     @EventHandler
     public void onCmd(PlayerCommandPreprocessEvent e) {
-            if (!verified.contains(e.getPlayer().getName())) {
-                e.setCancelled(true);
-                List strings = this.getConfig().getStringList("on-cmd-kick-message");
-                ArrayList finalStrings = new ArrayList();
-                (new Thread(() -> {
-                    Iterator var3 = strings.iterator();
-
-                    String sss;
-                    while (var3.hasNext()) {
-                        sss = (String) var3.next();
-                    }
-
-                    var3 = finalStrings.iterator();
-
-                    while (var3.hasNext()) {
-                        sss = (String) var3.next();
-                        e.getPlayer().sendMessage(sss);
-                    }
-
-                })).start();
-            }
+        if (!verified.contains(e.getPlayer().getName())) {
+            e.setCancelled(true);
+            e.getPlayer().kickPlayer("§6[AntiBot] Please verify you're not a bot a http://yoursitehere.com/whitelist/ to run commands on 6b6t");
         }
+    }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
@@ -119,6 +85,7 @@ public final class Main extends JavaPlugin implements Listener {
                 String sss;
                 while (var3.hasNext()) {
                     sss = (String) var3.next();
+                    finalStrings.add(sss.replace("&", "§").replace("{playername}", e.getPlayer().getDisplayName()));
                 }
 
                 var3 = finalStrings.iterator();
@@ -138,6 +105,7 @@ public final class Main extends JavaPlugin implements Listener {
                 String sss;
                 while (var3.hasNext()) {
                     sss = (String) var3.next();
+                    finalStrings.add(sss.replace("&", "§").replace("{playername}", e.getPlayer().getDisplayName()));
                 }
 
                 var3 = finalStrings.iterator();

@@ -19,7 +19,7 @@ import java.util.Map;
 public class ReCaptcha
 {
     public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(80), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(42069), 0);
         server.createContext("/", new MyHandler());
         server.createContext("/submit", new MyHandler2());
         server.setExecutor(null);
@@ -31,7 +31,7 @@ public class ReCaptcha
     static class MyHandler
             implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String response = "<html>\r\n  <head>\r\n    <title>6b6t - AntiBot</title>\r\n    <script type=\"text/javascript\">\r\n      var onloadCallback = function() {\r\n        grecaptcha.render('html_element', {\r\n          'sitekey' : 'Put Your Site Key Here'\r\n        });\r\n      };\r\n    </script>\r\n  </head>\r\n  <body>\r\n    <form action=\"/submit\">\r\n      <div  align=\"center\">      <label for=\"username\"><b>Username</b></label>\r\n      <input type=\"text\" placeholder=\"Enter Username\" name=\"username\" required>\r\n      <div id=\"html_element\"></div>\r\n      <br>\r\n      <input type=\"submit\" value=\"Submit\">\r\n    </form>\r\n    <script src=\"https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit\"\r\n        async defer>\r\n    </script>\r\n      </div>  </body>\r\n</html>";
+            String response = "<html>\r\n  <head>\r\n    <title>6b6t - AntiBot</title>\r\n    <script type=\"text/javascript\">\r\n      var onloadCallback = function() {\r\n        grecaptcha.render('html_element', {\r\n          'sitekey' : 'Your Captcha site key here'\r\n        });\r\n      };\r\n    </script>\r\n  </head>\r\n  <body>\r\n    <form action=\"/submit\">\r\n      <div  align=\"center\">      <label for=\"username\"><b>Username</b></label>\r\n      <input type=\"text\" placeholder=\"Enter Username\" name=\"username\" required>\r\n      <div id=\"html_element\"></div>\r\n      <br>\r\n      <input type=\"submit\" value=\"Submit\">\r\n    </form>\r\n    <script src=\"https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit\"\r\n        async defer>\r\n    </script>\r\n      </div>  </body>\r\n</html>";
 
 
 
@@ -80,7 +80,7 @@ public class ReCaptcha
             String response = null;
             Map<String, String> map = ReCaptcha.xd(t.getRequestURI().getRawQuery());
             try {
-                if (ReCaptcha.isCaptchaValid("Put Your Secret Key Here", (String)map.get("g-recaptcha-response"))) {
+                if (ReCaptcha.isCaptchaValid("your recaptcha secret key here", (String)map.get("g-recaptcha-response"))) {
                     captchaValid = true;
                 }
                 if (captchaValid)
