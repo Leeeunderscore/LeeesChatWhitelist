@@ -1,42 +1,39 @@
-#LeeesChatWhitelist V1.0.0 Configuration
-#use § for chat colours in the messages
-#you may not redistribute this plugin without my permission unless it has not been edited in anyway
-#if you do i will remove it from the public and i will stop development of it
-#made by Nate Legault and or Leeeunderscore the owner and creator of 6b6t.org
-#visit my site https://plugins.xera.ca for other plugins i make
-#the webserver runs on port 80 please put in your recaptcha keys
+#LeeesChatWhitelist V2.0.5 Configuration
+#use & for chat colours in the messages
+#please note this plugin uses recaptcha only
+#https://www.google.com/recaptcha/
+#blacklist command can only be done via console
+#permission for this is whitelist.admin
 
 #not whitelisted player join message
 not-whitelisted-message:
-  - "§1-----------------------------------------------"
-  - "§6[AntiBot] Welcome to §b6builders§36tools"
-  - "§6Please verify you're not a bot at"
-  - "§chttps://www.6b6t.org/whitelist/ §6to chat on §b6b§36t"
-  - "§6or you will be kicked if you dont"
-  - "§1-----------------------------------------------"
+  - "&1-----------------------------------------------"
+  - "&6[AntiBot] Welcome"
+  - "&6Please verify you're not a bot at"
+  - "&chttp://whitelist.6b6t.org &6to play"
+  - "&6or you will be kicked if you dont"
+  - "&1-----------------------------------------------"
 
 #whitelisted player join message
 whitelisted-message:
-  - "§1-----------------------------------------------"
-  - "§6Welcome back to §b6b§36t §6you are not a bot :)"
-  - "§6Please join 6b6t using §c6b6t.org §6and on versions"
-  - "§c1.12 §6or §c1.12.2 §6for the best experience"
-  - "§6Do §c/discord §6to join the official §b6b§36t §6discord server"
-  - "§6For more info about §b6b§36t §6do §c/info §6and §c/help"
-  - "§6Enjoy your stay on §b6builders§36tools §6!!!"
-  - "§1-----------------------------------------------"
+  - "&1-----------------------------------------------"
+  - "&6Welcome back you are not a bot :)"
+  - "&1-----------------------------------------------"
 
-#not whitelisted player chat kick message (work in progress for now you have to edit the source and compile your own version)
-#on-chat-kick-message:
-# - "§6[AntiBot] Please verify you're not a bot at https://www.6b6t.org/whitelist/ to chat on 6b6t"
+#blacklisted player join message
+blacklisted-message:
+  - "&1-----------------------------------------------"
+  - "&6You are a confirmed bot if not please contact us"
+  - "&1-----------------------------------------------"
 
-#not whitelisted player run command kick message (work in progress for now you have to edit the source and compile your own version)
-#on-cmd-kick-message:
-#- "§6[AntiBot] Please verify you're not a bot at https://www.6b6t.org/whitelist/ to run commands on 6b6t"
+#count down kick in seconds
+countdownkick: 25
 
-#put your captcha keys here (work in progress for now you have to edit the source and compile your own version)
-#reg-key:
-#  - ""
-#secret-key:
-#  - ""
+#kick messages
+kickmessage: "&6[AntiBot] please verify your not a bot at http://whitelist.6b6t.org"
+blacklistedkick: "&6[AntiBot] you are confirmed to be a bot if this is false contact us"
 
+#webpage related stuff use recaptcha for your site and private key this only works with recaptcha
+port: 25594
+sitekey: "6LfYDeMUAAAAAG0I-RkGVT49l1V0IgazaT2aKBhI"
+privatekey: "6LfYDeMUAAAAAOzZgErh--4AjdA8kzEHy22h5rys"

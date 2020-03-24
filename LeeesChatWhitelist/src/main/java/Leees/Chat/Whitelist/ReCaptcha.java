@@ -5,6 +5,11 @@ import com.google.gson.JsonParser;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,11 +20,17 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class ReCaptcha
 {
+
     public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(42069), 0);
+        int port;
+
+        port = Main.getPlugin().getConfig().getInt("port");
+
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
         server.createContext("/", new MyHandler());
         server.createContext("/submit", new MyHandler2());
         server.setExecutor(null);
@@ -31,7 +42,20 @@ public class ReCaptcha
     static class MyHandler
             implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
-            String response = "<html>\r\n  <head>\r\n    <title>6b6t - AntiBot</title>\r\n    <script type=\"text/javascript\">\r\n      var onloadCallback = function() {\r\n        grecaptcha.render('html_element', {\r\n          'sitekey' : 'Your Captcha site key here'\r\n        });\r\n      };\r\n    </script>\r\n  </head>\r\n  <body>\r\n    <form action=\"/submit\">\r\n      <div  align=\"center\">      <label for=\"username\"><b>Username</b></label>\r\n      <input type=\"text\" placeholder=\"Enter Username\" name=\"username\" required>\r\n      <div id=\"html_element\"></div>\r\n      <br>\r\n      <input type=\"submit\" value=\"Submit\">\r\n    </form>\r\n    <script src=\"https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit\"\r\n        async defer>\r\n    </script>\r\n      </div>  </body>\r\n</html>";
+            String sitekey;
+            sitekey = Main.getPlugin().getConfig().getString("sitekey");
+            String response = "<html>\r\n  <head>\r\n    <title>LeeesChatWhitelist</title>\r\n    " +
+                    "<script type=\"text/javascript\">\r\n      var onloadCallback = function() {\r\n       " +
+                    " grecaptcha.render('html_element', {\r\n          'sitekey' : " + "'" + sitekey + "'" +
+                    "});\r\n      };\r\n    </script>\r\n  </head>\r\n  <body>\r\n    <form action=\"/submit\">\r\n   " +
+                    "   <div  align=\"center\"><label for=\"username\"><b><h2>LeeesChatWhitelist</h2></b></label>\n " +
+                    "<label for=\"username\"><b><h2>Ver 2.0.5</h2></b></label>\n" +
+                    "<label for=\"username\"><b><h3>Please enter your username with proper caps and lower case</h3></b></label>\n <label for=\"username\"><b>Username</b></label>\r\n   " +
+                    "   <input type=\"text\" placeholder=\"Enter Username\" name=\"username\" required>\r\n     " +
+                    " <div id=\"html_element\"></div>\r\n      <br>\r\n      <input type=\"submit\" value=\"Submit\">\r\n " +
+                    "   </form>\r\n    " +
+                    "<script src=\"https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit\"\r\n " +
+                    "       async defer>\r\n    </script>\r\n      </div>  </body>\r\n</html>";
 
 
 
@@ -76,11 +100,13 @@ public class ReCaptcha
     static class MyHandler2
             implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
+            String privatekey;
+            privatekey = Main.getPlugin().getConfig().getString("privatekey");
             boolean captchaValid = false;
             String response = null;
             Map<String, String> map = ReCaptcha.xd(t.getRequestURI().getRawQuery());
             try {
-                if (ReCaptcha.isCaptchaValid("your recaptcha secret key here", (String)map.get("g-recaptcha-response"))) {
+                if (ReCaptcha.isCaptchaValid("" + privatekey + "", (String)map.get("g-recaptcha-response"))) {
                     captchaValid = true;
                 }
                 if (captchaValid)
@@ -88,8 +114,10 @@ public class ReCaptcha
                 else { response = "Captcha Failed"; }
                 if (captchaValid) {
                     String name = (String)map.get("username");
-                    Main.verified.add(name);
+                    String uuid = Bukkit.getOfflinePlayer(name).getUniqueId().toString();
+                    Main.verified.add(uuid);
                     Main.save();
+                    System.out.println(name + " Has been Whitelisted");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -102,6 +130,8 @@ public class ReCaptcha
     }
 
     public static boolean isCaptchaValid(String secretKey, String response) {
+        String sitekey;
+        sitekey = Main.getPlugin().getConfig().getString("sitekey");
         try {
             String url = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + response;
 
