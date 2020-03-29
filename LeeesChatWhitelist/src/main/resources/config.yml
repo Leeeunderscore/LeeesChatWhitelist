@@ -1,4 +1,4 @@
-#LeeesChatWhitelist V2.0.5 Configuration
+#LeeesChatWhitelist V2.0.6 Configuration
 #use & for chat colours in the messages
 #please note this plugin uses recaptcha only
 #https://www.google.com/recaptcha/
@@ -37,3 +37,4 @@ blacklistedkick: "&6[AntiBot] you are confirmed to be a bot if this is false con
 port: 25594
 sitekey: "6LfYDeMUAAAAAG0I-RkGVT49l1V0IgazaT2aKBhI"
 privatekey: "6LfYDeMUAAAAAOzZgErh--4AjdA8kzEHy22h5rys"
+servername: "LeeesChatWhitelist"

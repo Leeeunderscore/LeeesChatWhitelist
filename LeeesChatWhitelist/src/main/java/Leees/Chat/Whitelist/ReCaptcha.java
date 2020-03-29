@@ -42,14 +42,16 @@ public class ReCaptcha
     static class MyHandler
             implements HttpHandler {
         public void handle(HttpExchange t) throws IOException {
+            String servername;
+            servername = Main.getPlugin().getConfig().getString("servername");
             String sitekey;
             sitekey = Main.getPlugin().getConfig().getString("sitekey");
-            String response = "<html>\r\n  <head>\r\n    <title>LeeesChatWhitelist</title>\r\n    " +
+            String response = "<html>\r\n  <head>\r\n    <title>" + servername + "</title>\r\n    " +
                     "<script type=\"text/javascript\">\r\n      var onloadCallback = function() {\r\n       " +
                     " grecaptcha.render('html_element', {\r\n          'sitekey' : " + "'" + sitekey + "'" +
                     "});\r\n      };\r\n    </script>\r\n  </head>\r\n  <body>\r\n    <form action=\"/submit\">\r\n   " +
-                    "   <div  align=\"center\"><label for=\"username\"><b><h2>LeeesChatWhitelist</h2></b></label>\n " +
-                    "<label for=\"username\"><b><h2>Ver 2.0.5</h2></b></label>\n" +
+                    "   <div  align=\"center\"><label for=\"username\"><b><h2>" + servername + "</h2></b></label>\n " +
+                    "<label for=\"username\"><b><h2>Ver 2.0.6</h2></b></label>\n" +
                     "<label for=\"username\"><b><h3>Please enter your username with proper caps and lower case</h3></b></label>\n <label for=\"username\"><b>Username</b></label>\r\n   " +
                     "   <input type=\"text\" placeholder=\"Enter Username\" name=\"username\" required>\r\n     " +
                     " <div id=\"html_element\"></div>\r\n      <br>\r\n      <input type=\"submit\" value=\"Submit\">\r\n " +
