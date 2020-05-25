@@ -29,6 +29,7 @@ public final class Main extends JavaPlugin implements Listener {
 
     public static File completedFile;
     public static File blaclistFile;
+    public static File indexhtml;
 
     public static Main getPlugin() {
         return (Main) getPlugin(Main.class);
@@ -51,6 +52,96 @@ public final class Main extends JavaPlugin implements Listener {
                 return;
             }
         }
+        indexhtml = new File(dir, "index.html");
+        if (!indexhtml.exists()) {
+            try {
+                indexhtml.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+                getServer().getPluginManager().disablePlugin(this);
+                return;
+            }
+            if (indexhtml.exists()) {
+                try {
+                    String fileContent = "<html>\n" +
+                            "  <head>\n" +
+                            "    <title>LeeesChatWhitelist</title>\n" +
+                            "    <script type=\"text/javascript\">\n" +
+                            "      var onloadCallback = function() {\n" +
+                            "        grecaptcha.render('html_element', {\n" +
+                            "          'sitekey' : '6LfYDeMUAAAAAG0I-RkGVT49l1V0IgazaT2aKBhI'});\n" +
+                            "      };\n" +
+                            "    </script>\n" +
+                            "  </head>\n" +
+                            "  <body>\n" +
+                            "    <form action=\"/submit\">\n" +
+                            "      <div  align=\"center\"><label for=\"username\"><b><h1>LeeesChatWhitelist</h1></b></label>\n" +
+                            " <label for=\"username\"><b><h2>Ver 2.0.8</h2></b></label>\n" +
+                            "<label for=\"username\"><b><h3>Please enter your username with proper caps and lower case</h3></b></label>\n" +
+                            " <label for=\"username\"><b><h3>Username</h3></b></label>\n" +
+                            "      <input type=\"text\" placeholder=\"Enter Username\" name=\"username\" required>\n" +
+                            "<br><br>      <div id=\"html_element\"></div>\n" +
+                            "      <br>\n" +
+                            "      <input type=\"submit\" value=\"Submit\">\n" +
+                            "    </form>\n" +
+                            "    <script src=\"https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit\"\n" +
+                            "        async defer>\n" +
+                            "    </script>\n" +
+                            "      </div>  </body>\n" +
+                            "\t        <style>\n" +
+                            "body {\n" +
+                            "    color: black;\n" +
+                            "    background-image:url('https://cdn.discordapp.com/attachments/699025897373827073/714543738118209566/2020-05-25_11.21.34.png');\n" +
+                            "    background-repeat: no-repeat;\n" +
+                            "    background-size: 100% 100%;\n" +
+                            "}\n" +
+                            "h1 {\n" +
+                            "  color: white;\n" +
+                            "}\n" +
+                            "h2 {\n" +
+                            "  color: white;\n" +
+                            "}\n" +
+                            "h3 {\n" +
+                            "  color: white;\n" +
+                            "}\n" +
+                            "h4 {\n" +
+                            "  color: white;\n" +
+                            "}\n" +
+                            "h5 {\n" +
+                            "  color: white;\n" +
+                            "}\n" +
+                            "h6 {\n" +
+                            "  color: white;\n" +
+                            "}\n" +
+                            "html {\n" +
+                            "    height: 100%\n" +
+                            "}\n" +
+                            ".class { \n" +
+                            "\tfont-family: Verdana,Geneva,sans-serif; \n" +
+                            "}\n" +
+                            "            body, html\n" +
+                            "            {\n" +
+                            "                margin: 0; padding: 0; height: 100%; overflow: hidden;\n" +
+                            "            }\n" +
+                            "\n" +
+                            "            #content\n" +
+                            "            {\n" +
+                            "                position:absolute; left: 0; right: 0; bottom: 0; top: 0px; \n" +
+                            "            }\n" +
+                            "</style>\n" +
+                            "</html>";
+
+                    BufferedWriter writer = new BufferedWriter(new FileWriter("plugins/LeeesChatWhitelist/index.html"));
+                    writer.write(fileContent);
+                    writer.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    getServer().getPluginManager().disablePlugin(this);
+                    return;
+                }
+            }
+        }
+
         try {
             BufferedReader br = new BufferedReader(new FileReader(completedFile));
             br.lines().forEach(uuid ->
@@ -146,6 +237,7 @@ public final class Main extends JavaPlugin implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
         if (!verified.contains(e.getPlayer().getUniqueId().toString())) {
+            List strings = this.getConfig().getStringList("not-whitelisted-message");
             Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
                 int time = Main.getPlugin().getConfig().getInt("countdownkick"); //or any other number you want to start countdown from
 
@@ -156,62 +248,61 @@ public final class Main extends JavaPlugin implements Listener {
                     }
 
                     this.time--;
-                }
-            }, 0L, 20L);
-            List strings = this.getConfig().getStringList("not-whitelisted-message");
-            ArrayList finalStrings = new ArrayList();
-            (new Thread(() -> {
-                Iterator var3 = strings.iterator();
 
-                String sss;
-                while (var3.hasNext()) {
-                    sss = (String) var3.next();
-                    finalStrings.add(sss.replace("&", "§").replace("{playername}", e.getPlayer().getDisplayName()));
-                }
+                    ArrayList finalStrings = new ArrayList();
+                    (new Thread(() -> {
+                        Iterator var3 = strings.iterator();
 
-                var3 = finalStrings.iterator();
-
-                while (var3.hasNext()) {
-                    sss = (String) var3.next();
-                    e.getPlayer().sendMessage(sss);
-                }
-
-            })).start();
-        } else if (blacklisted.contains(e.getPlayer().getUniqueId().toString())) {
-                Bukkit.getScheduler().runTaskTimer(this, new Runnable()
-                {
-                    int time = Main.getPlugin().getConfig().getInt("countdownkick"); //or any other number you want to start countdown from
-
-                    @Override
-                    public void run()
-                    {
-                        if (this.time == 0)
-                        {
-                            e.getPlayer().kickPlayer(Main.getPlugin().getConfig().getString("blacklistedkick").replace("&", "§"));
+                        String sss;
+                        while (var3.hasNext()) {
+                            sss = (String) var3.next();
+                            finalStrings.add(sss.replace("&", "§").replace("{playername}", e.getPlayer().getDisplayName()));
                         }
 
-                        this.time--;
+                        var3 = finalStrings.iterator();
+
+                        while (var3.hasNext()) {
+                            sss = (String) var3.next();
+                            e.getPlayer().sendMessage(sss);
+                        }
+
+                    })).start();
+                }
+
+            }, 0L, 20L);
+
+        } else if (blacklisted.contains(e.getPlayer().getUniqueId().toString())) {
+            List strings = this.getConfig().getStringList("blacklisted-message");
+            Bukkit.getScheduler().runTaskTimer(this, new Runnable() {
+                int time = Main.getPlugin().getConfig().getInt("countdownkick"); //or any other number you want to start countdown from
+
+                @Override
+                public void run() {
+                    if (this.time == 0) {
+                        e.getPlayer().kickPlayer(Main.getPlugin().getConfig().getString("blacklistedkick").replace("&", "§"));
                     }
-                }, 0L, 20L);
-                List strings = this.getConfig().getStringList("blacklisted-message");
-                ArrayList finalStrings = new ArrayList();
-                (new Thread(() -> {
-                    Iterator var3 = strings.iterator();
 
-                    String sss;
-                    while (var3.hasNext()) {
-                        sss = (String) var3.next();
-                        finalStrings.add(sss.replace("&", "§").replace("{playername}", e.getPlayer().getDisplayName()));
-                    }
+                    this.time--;
+                    ArrayList finalStrings = new ArrayList();
+                    (new Thread(() -> {
+                        Iterator var3 = strings.iterator();
 
-                    var3 = finalStrings.iterator();
+                        String sss;
+                        while (var3.hasNext()) {
+                            sss = (String) var3.next();
+                            finalStrings.add(sss.replace("&", "§").replace("{playername}", e.getPlayer().getDisplayName()));
+                        }
 
-                    while (var3.hasNext()) {
-                        sss = (String) var3.next();
-                        e.getPlayer().sendMessage(sss);
-                    }
+                        var3 = finalStrings.iterator();
 
-                })).start();
+                        while (var3.hasNext()) {
+                            sss = (String) var3.next();
+                            e.getPlayer().sendMessage(sss);
+                        }
+
+                    })).start();
+                }
+            }, 0L, 20L);
         } else {
             List strings = this.getConfig().getStringList("whitelisted-message");
             ArrayList finalStrings = new ArrayList();

@@ -1,4 +1,4 @@
-#LeeesChatWhitelist V2.0.6 Configuration
+#LeeesChatWhitelist V2.0.8 Configuration
 #use & for chat colours in the messages
 #please note this plugin uses recaptcha only
 #https://www.google.com/recaptcha/
@@ -34,7 +34,8 @@ kickmessage: "&6[AntiBot] please verify your not a bot at http://whitelist.6b6t.
 blacklistedkick: "&6[AntiBot] you are confirmed to be a bot if this is false contact us"
 
 #webpage related stuff use recaptcha for your site and private key this only works with recaptcha
+#you must also put the site key in the index.html
 port: 25594
+#you must also put the site key in the index.html
 sitekey: "6LfYDeMUAAAAAG0I-RkGVT49l1V0IgazaT2aKBhI"
 privatekey: "6LfYDeMUAAAAAOzZgErh--4AjdA8kzEHy22h5rys"
-servername: "LeeesChatWhitelist"

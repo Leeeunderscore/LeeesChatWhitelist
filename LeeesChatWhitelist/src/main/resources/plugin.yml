@@ -1,5 +1,5 @@
 name: LeeesChatWhitelist
-version: 2.0.6
+version: 2.0.8
 main: Leees.Chat.Whitelist.Main
 api-version: 1.13
 authors: [Nate, Legault]
